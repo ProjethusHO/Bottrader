@@ -28,7 +28,30 @@ Bottrader/
 *   `telegram_alert.py`: Módulo responsável por enviar mensagens para o Telegram.
 *   `requirements.txt`: Lista de dependências Python necessárias para o projeto.
 
-## Configuração
+## Configuração Segura (GitHub Secrets)
+
+Por motivos de segurança, o **Bottrader** está configurado para ler suas chaves da Binance de **variáveis de ambiente**. 
+
+### No Ambiente Local (Desenvolvimento)
+Você pode exportar as chaves no seu terminal antes de rodar o bot:
+```bash
+export BINANCE_API_KEY='sua_chave_aqui'
+export BINANCE_SECRET='seu_secret_aqui'
+```
+
+### No GitHub (Produção/CI)
+Vá em **Settings > Secrets and variables > Actions** e adicione:
+- `BINANCE_API_KEY`
+- `BINANCE_SECRET`
+
+## Modo TestNet (Sandbox)
+O bot está configurado por padrão para rodar no modo **TestNet (Sandbox)** da Binance. Isso permite testar a estratégia sem usar dinheiro real.
+Para desativar o TestNet e operar na conta real, altere no `config.py`:
+```python
+BINANCE_TESTNET = False
+```
+
+## Configuração Básica
 
 1.  **Clonar o repositório**:
     ```bash
@@ -41,13 +64,11 @@ Bottrader/
     pip install -r requirements.txt
     ```
 
-3.  **Configurar `config.py`**:
-    Abra o arquivo `config.py` e preencha suas chaves de API da Binance, os símbolos que deseja monitorar e o timeframe.
+3.  **Configurar Símbolos e Moeda**:
+    No `config.py`, você pode ajustar a moeda base e os pares de trading.
     ```python
-    BINANCE_API_KEY = 'SUA_API_KEY_BINANCE'
-    BINANCE_SECRET = 'SEU_SECRET_BINANCE'
-    TIMEFRAME = '1h'  # Ex: '1m', '5m', '15m', '1h', '4h', '1d'
-    SYMBOLS = ['BTC/USDT', 'ETH/USDT'] # Ex: ['BTC/USDT', 'ETH/USDT', 'BNB/USDT']
+    BASE_CURRENCY = 'BRL'
+    SYMBOLS = ['BTC/BRL', 'ETH/BRL']
     ```
 
 4.  **Configurar `telegram_alert.py`**:

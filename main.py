@@ -15,6 +15,11 @@ binance = ccxt.binance({
     'enableRateLimit': True
 })
 
+# Habilitar modo TestNet (Sandbox) se configurado
+if BINANCE_TESTNET:
+    binance.set_sandbox_mode(True)
+    print("--- ATENÇÃO: OPERANDO EM MODO TESTNET (SANDBOX) ---")
+
 def get_ohlcv(symbol):
     """
     Busca as velas de preço da Binance.
