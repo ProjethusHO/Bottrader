@@ -5,10 +5,6 @@ from .telegram_alert import send_telegram_alert
 def create_market_order(exchange, symbol, side, amount):
     """
     Cria uma ordem a mercado na Binance.
-    :param exchange: Instância do ccxt.binance
-    :param symbol: Símbolo do par (ex: 'BTC/USDT')
-    :param side: 'buy' ou 'sell'
-    :param amount: Quantidade a ser comprada ou vendida
     """
     try:
         order = exchange.create_market_order(symbol, side, amount)
@@ -24,25 +20,34 @@ def create_market_order(exchange, symbol, side, amount):
 
 def get_balance(exchange, currency):
     """
-    Verifica o saldo disponível para uma moeda específica.
-    :param exchange: Instância do ccxt.binance
-    :param currency: Moeda (ex: 'USDT', 'BTC')
+    Verifica o saldo disponível para uma moeda específica (BRL, USDT, BTC, etc).
     """
     try:
         balance = exchange.fetch_balance()
-        return balance['free'][currency]
+        return balance['free'].get(currency, 0.0)
     except Exception as e:
         print(f"Erro ao buscar saldo de {currency}: {e}")
         return 0.0
 
-def calculate_amount(exchange, symbol, usdt_amount):
+def calculate_amount(exchange, symbol, brl_amount):
     """
-    Calcula a quantidade de ativos a comprar com base em um valor em USDT.
+    Calcula a quantidade de ativos a comprar com base em um valor em BRL.
     """
     try:
         ticker = exchange.fetch_ticker(symbol)
         price = ticker['last']
-        return usdt_amount / price
+        return brl_amount / price
     except Exception as e:
         print(f"Erro ao calcular quantidade para {symbol}: {e}")
         return 0.0
+
+def get_current_price(exchange, symbol):
+    """
+    Busca o preço atual de um símbolo.
+    """
+    try:
+        ticker = exchange.fetch_ticker(symbol)
+        return ticker['last']
+    except Exception as e:
+        print(f"Erro ao buscar preço de {symbol}: {e}")
+        return None
