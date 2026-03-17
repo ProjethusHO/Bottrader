@@ -79,9 +79,16 @@ BINANCE_TESTNET = False
     ```
     Para obter o `TELEGRAM_BOT_TOKEN`, você pode conversar com o BotFather no Telegram. Para obter o `TELEGRAM_CHAT_ID`, você pode usar o bot `@get_id_bot`.
 
-## Execução
+## Execução no Windows (Recomendado)
 
-Para iniciar o Bottrader, execute o script `main.py`:
+Para facilitar o uso no Windows, utilize o arquivo `iniciar_bot.bat`. Ele configura as chaves de API do TestNet automaticamente e inicia o robô.
+
+1.  Dê um clique duplo em `iniciar_bot.bat`.
+2.  O navegador abrirá uma tirinha do Python (via `antigravity`) e o robô começará a monitorar o mercado no terminal.
+
+## Execução Manual
+
+Para iniciar o Bottrader manualmente, execute o script `main.py`:
 
 ```bash
 python main.py
